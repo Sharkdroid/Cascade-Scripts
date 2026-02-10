@@ -9,7 +9,7 @@ from warnings import warn
 from datetime import datetime
 
 #logging
-log_file = open(f'./{datetime.now().isoformat()}.log', 'w')
+log_file = open(f'./{datetime.now().isoformat()}.log', 'w', buffering=1)
 
 load_dotenv(".env")
 
@@ -66,7 +66,7 @@ def set_sitemap_if_exists(asset: Dict[str, Any]) -> Dict[str, Any]:
     return asset
     
 try:
-    log_file.write(f"Running sitemap_setter.py @{datetime.now()}")
+    log_file.write(f"Running sitemap_setter.py @{datetime.now()}\n")
     print("Program running. This may take a few minutes...")
     with requests.session() as session:
         with open(sitemap_csv_file, 'r') as file:
@@ -85,6 +85,7 @@ try:
                         has_sitemap,
                         cur_sitemap_val
                     ) = row
+                    print(f"Getting {path} ")
                     resp = session.get(
                         f"{base_url}/read/{asset_type}/{_id}",
                         headers=header
@@ -107,7 +108,7 @@ try:
                         if "success" in edit_status and not edit_status["success"]:
                             log_file.write(f"Error: {path} unsuccessful at updating. Return message:{edit_status['message']}\n")
                         else:
-                            log_file.write(f"Successfully updated {path}")
+                            log_file.write(f"Successfully updated {path}\n")
                 except requests.JSONDecodeError:
                     print(f"Request did not return a valid JSON format. (Most likely a HTML response)")
                 except requests.RequestException:
@@ -115,8 +116,9 @@ try:
                     log_file.write(f"***Network issue occurred***")
                 except ValueError:
                     problem_path = row[1]
-                    print(f"Please fix the row {problem_path} it contains too many columns")
-                    exit(1)
+                    raise RuntimeWarning(f"Please fix the row {problem_path} it contains too many columns")
+except RuntimeWarning as e:
+    print(f"RuntimeWarning: {str(e)}")
 finally:
     log_file.close()
     print("Cleanup")

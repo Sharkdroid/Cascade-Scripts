@@ -1,4 +1,4 @@
-## Index Block Script
+## Sitemap Script
 
 ### Description
 This script takes a CSV as input. The CSV contains the assets that have sitemap metadata of "No" and sets it to "Yes".<br>
