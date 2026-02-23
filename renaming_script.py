@@ -171,7 +171,7 @@ try:
                     print(f"{img_path} relationships:")
                     
                     if len(relationships_result["subscribers"]) == 0:
-                        log_file.write(f">> No other assets associated")
+                        log_file.write(f">> No other assets associated\n")
                         continue
                     
                     for relation_object in relationships_result["subscribers"]:
