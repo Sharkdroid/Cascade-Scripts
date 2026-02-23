@@ -4,6 +4,9 @@
 This script takes a CSV as input. The CSV contains the assets that have sitemap metadata of "No" and sets it to "Yes".<br>
 ***note**: This script is for site www.csi.edu only*
 
+### Prequisites
+Make sure you follow the installation process [here](https://github.com/Sharkdroid/Cascade-Scripts) before continuing
+
 > **Generating CSV**
 > - Navigate to /_common/_cms/formats/_dev/_dev-sitemap-csv
 > - Edit the format
