@@ -1,8 +1,8 @@
 # Image Renaming Script
 
 ### Description
-Rename images in a given site.
-**program flow:**
+Rename images in a given site.<br>
+**program flow:**<br>
 rename the displayName (if applicable) &rarr; rename with move operation & unpublish &rarr; republish image asset &rarr; republish all related assets
 
 ### Prequisites
